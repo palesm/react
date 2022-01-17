@@ -14,8 +14,17 @@ function remove(items, item) {
         if (index > -1) {
             items.splice(index, 1)
             return items;
-        } else return undefined;
-    } else return undefined;
+        }
+    }
 }
+
+// Udemy solution
+// function remove(items, item) {
+//     for (let i = 0; i < items.length; i++) {
+//         if (items[i] === item) {
+//             return [...items.slice(0,i), ...items.slice(i+1)];
+//         }
+//     }
+// }
 
 export {choice, remove}
