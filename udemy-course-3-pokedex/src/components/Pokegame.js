@@ -43,4 +43,9 @@ function getExp(hand) {
     return exp;
 }
 
+// udemy solution
+// function getExp(hand) {
+//     return hand.reduce((exp, pokemon) => exp + pokemon.base_experience, 0)
+// }
+
 export default Pokegame;
