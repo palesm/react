@@ -1,0 +1,16 @@
+#circle {
+    position: relative;
+    background-color: #09f;
+    margin: 5px;
+    width: 70px;
+    height: 70px;
+    border-radius: 200px;
+}
+#text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-weight: bold;
+}
