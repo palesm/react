@@ -32,7 +32,7 @@ class RollDice extends Component {
                     <Die number={this.state.dice1} isRolling={this.state.disabled}/>
                     <Die number={this.state.dice2} isRolling={this.state.disabled}/>
                 </div>
-                <button onClick={this.roll} disabled={this.state.disabled} className={this.state.disabled? 'RollDice-button-disabled': ''}>{this.state.message}</button>
+                <button onClick={this.roll} disabled={this.state.disabled} className={this.state.disabled ? 'RollDice-button-disabled' : ''}>{this.state.message}</button>
             </div>
         );
     }
