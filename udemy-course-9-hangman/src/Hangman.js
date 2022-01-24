@@ -7,6 +7,7 @@ import img3 from "./3.jpg";
 import img4 from "./4.jpg";
 import img5 from "./5.jpg";
 import img6 from "./6.jpg";
+import {randomWord} from "./words";
 
 class Hangman extends Component {
   /** by default, allow 6 guesses and use provided gallows images. */
@@ -17,7 +18,7 @@ class Hangman extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { nWrong: 0, guessed: new Set(), answer: "apple" };
+    this.state = { nWrong: 0, guessed: new Set(), answer:  randomWord() };
     this.handleGuess = this.handleGuess.bind(this);
   }
 
@@ -44,25 +45,38 @@ class Hangman extends Component {
 
   /** generateButtons: return array of letter buttons to render */
   generateButtons() {
-    return "abcdefghijklmnopqrstuvwxyz".split("").map(ltr => (
+    return "abcdefghijklmnopqrstuvwxyz".split("").map((ltr, i) => (
       <button
         value={ltr}
         onClick={this.handleGuess}
         disabled={this.state.guessed.has(ltr)}
+        key={`${ltr}-${i}`}
       >
         {ltr}
       </button>
     ));
   }
 
+  handleReset = () => {
+    this.setState({
+      nWrong: 0, guessed: new Set(), answer:  randomWord()
+    });
+  }
+
   /** render: render game */
   render() {
+    const isGameLost = this.state.nWrong > this.props.maxWrong -1;
+    let isGameWon = this.state.answer === this.guessedWord().join("")
+    const isGameEnded = isGameLost || isGameWon;
+    const message = isGameWon? 'You win' : 'You lost'
     return (
       <div className='Hangman'>
         <h1>Hangman</h1>
-        <img src={this.props.images[this.state.nWrong]} />
-        <p className='Hangman-word'>{this.guessedWord()}</p>
-        <p className='Hangman-btns'>{this.generateButtons()}</p>
+        <img alt={`${this.state.nWrong}/${this.props.maxWrong}`} src={this.props.images[this.state.nWrong]} />
+        <p>Number wrong: {this.state.nWrong}</p>
+        <p className='Hangman-word'>{!isGameEnded ? this.guessedWord(): this.state.answer}</p>
+        <p className='Hangman-btns'>{!isGameEnded ? this.generateButtons() : message}</p>
+        <button id="reset" onClick={this.handleReset} >Resetka</button>
       </div>
     );
   }
