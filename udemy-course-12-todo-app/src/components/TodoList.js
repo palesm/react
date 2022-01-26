@@ -64,7 +64,11 @@ class TodoList extends Component {
     }
     render() {
         return (
-            <div>
+            <div className='TodoList'>
+                <h1>
+                    Todo List
+                    <span>A Simple React Todo List App.</span>
+                </h1>
                 {this.state.todos.map(todo => {
                     return (
                         <div className='Todo-container' key={`div-todo-${todo.id}`}>
@@ -77,14 +81,16 @@ class TodoList extends Component {
                                 updateTodo={this.handleUpdate}
                                 complete={this.complete}
                             />
-                            {actions.map(action => {
-                                return (
-                                    <div className='icon' key={`div-icon-${action.name}`} onClick={() => this.handleIconClicked(action.name, todo.id)}>
-                                        <FontAwesomeIcon key={`icon-${action.name}`} icon={action.icon} />
-                                    </div>
-                                )
+                            <div className='Icon-container'>
+                                {!todo.isEdited && actions.map(action => {
+                                    return (
+                                        <div className='icon' key={`div-icon-${action.name}`} onClick={() => this.handleIconClicked(action.name, todo.id)}>
+                                            <FontAwesomeIcon key={`icon-${action.name}`} icon={action.icon} />
+                                        </div>
+                                    )
 
-                            })}
+                                })}
+                            </div>
                         </div>
                     )
                 } )}

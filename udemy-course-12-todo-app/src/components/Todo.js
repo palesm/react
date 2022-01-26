@@ -23,16 +23,20 @@ class Todo extends Component {
     render() {
         return (
             <div className='Todo'>
-                <div className='Icon-container' onClick={this.handleClick}>
-                    {<FontAwesomeIcon  icon={this.props.isComplete ? faCheckSquare : faSquare} />}
-                </div>
+
                 {this.props.isEdited ?
                     <form onSubmit={this.handleSubmit}>
                         <input id="task" name="task" value={this.state.task} onChange={this.handleChange} />
                         <button>Save</button>
                     </form>
                     :
-                    <p style={{textDecoration: this.props.isComplete && 'line-through'}}>{this.props.task}</p>
+                    <>
+                        <div className='Icon-container' onClick={this.handleClick}>
+                            {<FontAwesomeIcon  icon={this.props.isComplete ? faCheckSquare : faSquare} />}
+                        </div>
+                        <p style={{textDecoration: this.props.isComplete && 'line-through'}}>{this.props.task}</p>
+                    </>
+
                 }
 
             </div>
