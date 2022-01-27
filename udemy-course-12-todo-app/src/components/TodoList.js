@@ -36,22 +36,27 @@ class TodoList extends Component {
         }))
     }
     handleEdit = (id, isEdited) => {
-        let newTodos = this.state.todos.map(todo => {
-            if (todo.id === id) {
-                return {...todo, isEdited: isEdited}
-            } return todo
-        })
-        this.setState({todos: newTodos})
+        let newTodos = (st => {
+            return {
+                todos: st.todos.map(todo => {
+                    if (todo.id === id) {
+                        return {...todo, isEdited: isEdited}
+                    }
+                    return todo
+                })
+            }})
+        this.setState(newTodos)
     }
     handleUpdate = (task, id) => {
-        let newTodos = this.state.todos.map(todo => {
-            if (todo.id === id) {
-                return {...todo, task: task}
-            } return todo
-        })
-        this.setState({todos: newTodos}, () => {
-            this.handleEdit(id, false)
-        })
+        let newTodos = (st => {
+            return {todos: st.todos.map(todo => {
+                if (todo.id === id) {
+                    return {...todo, task: task}
+                } return todo
+            })
+        }})
+        this.setState(newTodos)
+        this.handleEdit(id, false)
     }
     complete = (id) => {
         let newTodos = this.state.todos.map(todo => {
