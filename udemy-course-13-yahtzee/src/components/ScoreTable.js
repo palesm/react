@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import RuleRow from './RuleRow';
-import './ScoreTable.css';
+import '../css/ScoreTable.css';
 import { ones, twos, threes, fours, fives, sixes, threeOfKind, fourOfKind, fullHouse, smallStraight, largeStraight, yahtzee, chance } from './Rules';
 
 
