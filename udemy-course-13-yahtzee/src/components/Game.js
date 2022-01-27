@@ -67,6 +67,16 @@ class Game extends Component {
     this.roll();
   }
 
+  displayRollInfo() {
+    const messages = [
+        "0 rolls left",
+        "1 roll left",
+        "2 rolls left",
+        "Starting round"
+    ]
+
+    return messages[this.state.rollsLeft]
+  }
   render() {
     return (
       <div className='Game'>
@@ -85,7 +95,7 @@ class Game extends Component {
                 disabled={this.state.locked.every(x => x) || this.state.rollsLeft === 0}
                 onClick={this.roll}
               >
-                {this.state.rollsLeft} Rerolls Left
+                {this.displayRollInfo()}
               </button>
             </div>
           </section>
