@@ -8,17 +8,17 @@ class Vote extends Component {
         super(props);
     }
     getColor() {
-        if (this.props.votes >= 15) {
+        if (this.props.value >= 15) {
             return "#4CAF50";
-        } else if (this.props.votes >= 12) {
+        } else if (this.props.value >= 12) {
             return "#8BC34A";
-        } else if (this.props.votes >= 9) {
+        } else if (this.props.value >= 9) {
             return "#CDDC39";
-        } else if (this.props.votes >= 6) {
+        } else if (this.props.value >= 6) {
             return "#FFEB3B";
-        } else if (this.props.votes >= 3) {
+        } else if (this.props.value >= 3) {
             return "#FFC107";
-        } else if (this.props.votes >= 0) {
+        } else if (this.props.value >= 0) {
             return "#FF9800";
         } else {
             return "#f44336";
@@ -34,7 +34,7 @@ class Vote extends Component {
         return (
             <div className='Joke-buttons'>
                 <FontAwesomeIcon onClick={this.handleUpvote} icon={faArrowUp}/>
-                <span className='Joke-votes' style={{ borderColor: this.getColor() }}>
+                <span className='Joke-votes' style={{ borderColor: this.getColor()}}>
                     {this.props.value}
                 </span>
                 <FontAwesomeIcon onClick={this.handleDownvote} icon={faArrowDown}/>
