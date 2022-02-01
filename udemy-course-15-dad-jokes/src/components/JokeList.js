@@ -12,8 +12,8 @@ class JokeList extends Component {
         this.state = {
             jokes: JSON.parse(window.localStorage.getItem("jokes") || "[]")
         }
-        this.seenJokes = new Set(this.state.jokes.map(j => j.joke));
-        console.log(this.seenJokes)
+        this.seenJokes = new Set(this.state.jokes.map(j => j.text));
+        // console.log(this.seenJokes)
     }
     componentDidMount() {
         if (this.state.jokes.length === 0) this.getJokes();
@@ -54,9 +54,14 @@ class JokeList extends Component {
         })
         this.setState({jokes}, () => window.localStorage.setItem("jokes", JSON.stringify(this.state.jokes)))
     }
+    handleClick = () => {
+        this.setState({jokes: []}, () => this.getJokes())
+    }
     render() {
         return (
             <div>
+                <h1>Dad jokes :)</h1>
+                <button onClick={this.handleClick}>New jokes</button>
                 {this.state.jokes && this.state.jokes.map(joke => {
                     return (
                         <Joke
