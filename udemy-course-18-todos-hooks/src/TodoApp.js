@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useState} from "react";
 import {Typography, Paper, AppBar, Toolbar, Grid} from "@mui/material";
 import TodoList from "./TodoList";
@@ -6,11 +6,12 @@ import TodoForm from "./TodoForm";
 import {v4} from "uuid";
 
 function TodoApp(props) {
-  const initialTodos = [
-    {id: v4(), task: 'walk the fish', completed: false},
-    {id: v4(), task: 'learn react', completed: false},
-    {id: v4(), task: 'sleep', completed: true}
-  ]
+  const initialTodos = JSON.parse(window.localStorage.getItem("todos") || "[]")
+  // const initialTodos = [
+  //   {id: v4(), task: 'walk the fish', completed: false},
+  //   {id: v4(), task: 'learn react', completed: false},
+  //   {id: v4(), task: 'sleep', completed: true}
+  // ]
   const [todos, setTodos] = useState(initialTodos);
   const addTodo = task => {
     setTodos([...todos, {id: v4(), task: task, completed: false}])
@@ -35,6 +36,9 @@ function TodoApp(props) {
     })
     setTodos(newTodos)
   }
+  useEffect(() => {
+    window.localStorage.setItem("todos", JSON.stringify(todos))
+  }, [todos])
   return (
     <Paper
       style={{
@@ -50,9 +54,9 @@ function TodoApp(props) {
         </Toolbar>
       </AppBar>
       <Grid container style={{marginTop: '1rem', justifyContent: 'center'}}>
-        <Grid item lg={6} m={8} s={11}>
+        <Grid item lg={6} md={8} xs={10}>
           <TodoForm addTodo={addTodo}/>
-          <TodoList todos={todos} toggleCheck={toggleCheck} removeTodo={removeTodo} saveTodo={saveTodo}/>
+          {todos.length ? <TodoList todos={todos} toggleCheck={toggleCheck} removeTodo={removeTodo} saveTodo={saveTodo}/> : null}
         </Grid>
       </Grid>
     </Paper>
