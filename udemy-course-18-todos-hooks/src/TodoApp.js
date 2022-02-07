@@ -1,44 +1,13 @@
-import React, {useEffect} from 'react';
-import {useState} from "react";
-import {Typography, Paper, AppBar, Toolbar, Grid} from "@mui/material";
+import React from 'react';
+import {AppBar, Grid, Paper, Toolbar, Typography} from "@mui/material";
 import TodoList from "./TodoList";
 import TodoForm from "./TodoForm";
+import useTodoState from "./hooks/useTodoState";
 import {v4} from "uuid";
 
 function TodoApp(props) {
-  const initialTodos = JSON.parse(window.localStorage.getItem("todos") || "[]")
-  // const initialTodos = [
-  //   {id: v4(), task: 'walk the fish', completed: false},
-  //   {id: v4(), task: 'learn react', completed: false},
-  //   {id: v4(), task: 'sleep', completed: true}
-  // ]
-  const [todos, setTodos] = useState(initialTodos);
-  const addTodo = task => {
-    setTodos([...todos, {id: v4(), task: task, completed: false}])
-  }
-  const toggleCheck = (id) => {
-    const newTodos = todos.map(todo => {
-      if (todo.id === id) {
-        return {...todo, completed: !todo.completed}
-      } else return todo
-    })
-    setTodos(newTodos)
-  }
-  const removeTodo = (id) => {
-    const newTodos = todos.filter(todo => todo.id !== id)
-    setTodos(newTodos)
-  }
-  const saveTodo = (id, newTask) => {
-    const newTodos = todos.map(todo => {
-      if (todo.id === id) {
-        return {...todo, task: newTask}
-      } else return todo
-    })
-    setTodos(newTodos)
-  }
-  useEffect(() => {
-    window.localStorage.setItem("todos", JSON.stringify(todos))
-  }, [todos])
+  const initialTodos = [{id: v4(), task: "walk the fish", completed: true}]
+  const {todos, addTodo, toggleCheck, removeTodo, saveTodo} = useTodoState(initialTodos);
   return (
     <Paper
       style={{
@@ -56,7 +25,8 @@ function TodoApp(props) {
       <Grid container style={{marginTop: '1rem', justifyContent: 'center'}}>
         <Grid item lg={6} md={8} xs={10}>
           <TodoForm addTodo={addTodo}/>
-          {todos.length ? <TodoList todos={todos} toggleCheck={toggleCheck} removeTodo={removeTodo} saveTodo={saveTodo}/> : null}
+          {todos.length ?
+            <TodoList todos={todos} toggleCheck={toggleCheck} removeTodo={removeTodo} saveTodo={saveTodo}/> : null}
         </Grid>
       </Grid>
     </Paper>
